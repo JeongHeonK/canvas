@@ -1,29 +1,13 @@
-import { Stage, Layer, Rect, Transformer } from "react-konva";
-import { useState, useEffect, useRef } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import Konva from "konva";
+import { useEffect, useRef, useState } from "react";
+import { Layer, Rect, Stage, Transformer } from "react-konva";
 
-const initialRectangles = [
-  {
-    x: 60,
-    y: 60,
-    width: 100,
-    height: 90,
-    fill: "red",
-    id: "rect1",
-    name: "rect",
-  },
-  {
-    x: 250,
-    y: 100,
-    width: 150,
-    height: 90,
-    fill: "green",
-    id: "rect2",
-    name: "rect",
-  },
-];
+export const Route = createFileRoute("/")({
+  component: Index,
+});
 
-const App = () => {
+function Index() {
   const [rectangles, setRectangles] = useState(initialRectangles);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [selectionRectangle, setSelectionRectangle] = useState({
@@ -272,6 +256,25 @@ const App = () => {
       </Layer>
     </Stage>
   );
-};
+}
 
-export default App;
+const initialRectangles = [
+  {
+    x: 60,
+    y: 60,
+    width: 100,
+    height: 90,
+    fill: "red",
+    id: "rect1",
+    name: "rect",
+  },
+  {
+    x: 250,
+    y: 100,
+    width: 150,
+    height: 90,
+    fill: "green",
+    id: "rect2",
+    name: "rect",
+  },
+];

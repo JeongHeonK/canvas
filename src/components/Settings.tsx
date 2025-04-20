@@ -112,9 +112,9 @@ export default function Settings({ canvas }: SettingsProps) {
     }
   };
   return (
-    <div className="absolute bottom-1/4 p-3 inset-x-0 flex flex-col gap-3 mx-auto w-32 bg-slate-900 rounded-md text-white">
+    <>
       {selectedObject && selectedObject.type === "rect" && (
-        <>
+        <div className="absolute bottom-1/4 p-3 inset-x-0 flex flex-col gap-3 mx-auto w-32 bg-slate-900 rounded-md text-white">
           <label htmlFor="Width">
             Width
             <input
@@ -150,10 +150,10 @@ export default function Settings({ canvas }: SettingsProps) {
               onChange={handleColorChange}
             />
           </label>
-        </>
+        </div>
       )}
       {selectedObject && selectedObject.type === "circle" && (
-        <>
+        <div className="absolute bottom-1/4 p-3 inset-x-0 flex flex-col gap-3 mx-auto w-32 bg-slate-900 rounded-md text-white">
           <label htmlFor="Height">
             Diameter
             <input
@@ -177,8 +177,8 @@ export default function Settings({ canvas }: SettingsProps) {
               onChange={handleColorChange}
             />
           </label>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }

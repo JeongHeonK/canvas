@@ -207,6 +207,7 @@ function Index() {
       onMousemove={handleMouseMove}
       onMouseup={handleMouseUp}
       onClick={handleStageClick}
+      className="pt-20"
     >
       <Layer>
         {/* Render rectangles directly */}

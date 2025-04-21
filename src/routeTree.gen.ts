@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as FabricImport } from './routes/fabric'
+import { Route as ColorPickersImport } from './routes/colorPickers'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -19,6 +20,12 @@ import { Route as IndexImport } from './routes/index'
 const FabricRoute = FabricImport.update({
   id: '/fabric',
   path: '/fabric',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ColorPickersRoute = ColorPickersImport.update({
+  id: '/colorPickers',
+  path: '/colorPickers',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,6 +46,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/colorPickers': {
+      id: '/colorPickers'
+      path: '/colorPickers'
+      fullPath: '/colorPickers'
+      preLoaderRoute: typeof ColorPickersImport
+      parentRoute: typeof rootRoute
+    }
     '/fabric': {
       id: '/fabric'
       path: '/fabric'
@@ -53,36 +67,41 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/fabric'
+  fullPaths: '/' | '/colorPickers' | '/fabric'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/fabric'
-  id: '__root__' | '/' | '/fabric'
+  to: '/' | '/colorPickers' | '/fabric'
+  id: '__root__' | '/' | '/colorPickers' | '/fabric'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ColorPickersRoute: typeof ColorPickersRoute
   FabricRoute: typeof FabricRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ColorPickersRoute: ColorPickersRoute,
   FabricRoute: FabricRoute,
 }
 
@@ -97,11 +116,15 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/colorPickers",
         "/fabric"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/colorPickers": {
+      "filePath": "colorPickers.tsx"
     },
     "/fabric": {
       "filePath": "fabric.tsx"

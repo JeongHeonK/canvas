@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Canvas, Rect, Circle } from "fabric";
+import { Canvas, Rect, Circle, Point, PencilBrush, Path } from "fabric";
 import { useEffect, useRef, useState } from "react";
 import { BiRectangle } from "react-icons/bi";
 import { FaRegCircle } from "react-icons/fa";
@@ -15,6 +15,31 @@ interface ExtendedCanvas extends Canvas {
   lastPosY?: number;
 }
 
+class TransparentEraserBrush extends PencilBrush {
+  _finalizeAndAddPath() {
+    const ctx = this.canvas.contextTop;
+    ctx.closePath();
+    if (this._points && this._points.length > 1) {
+      const pathData = this.convertPointsToSVGPath(this._points).join("");
+      const path = new Path(pathData, {
+        fill: null,
+        stroke: "rgba(0,0,0,1)", // stroke는 있어야 함
+        strokeWidth: this.width,
+        strokeLineCap: "round",
+        strokeLineJoin: "round",
+        selectable: false,
+        evented: false,
+        globalCompositeOperation: "destination-out", // 🔥 핵심
+      });
+
+      this.canvas.add(path);
+      this.canvas.requestRenderAll();
+    }
+
+    this._reset();
+  }
+}
+
 function Fabric() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvas, setCanvas] = useState<Canvas | null>(null);
@@ -22,11 +47,15 @@ function Fabric() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === "Space") isSpaceDown.current = true;
+      if (e.code === "Space") {
+        isSpaceDown.current = true;
+      }
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
-      if (e.code === "Space") isSpaceDown.current = false;
+      if (e.code === "Space") {
+        isSpaceDown.current = false;
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -41,8 +70,15 @@ function Fabric() {
       initCanvas.backgroundColor = "white";
       initCanvas.on("mouse:wheel", (opt) => {
         const delta = opt.e.deltaY;
-        const zoom = initCanvas.getZoom();
-        initCanvas.setZoom(zoom * 0.999 ** delta);
+        let zoom = initCanvas.getZoom();
+        zoom *= 0.999 ** delta; // 부드러운 줌
+        zoom = Math.max(0.1, Math.min(zoom, 10)); // 줌 한계 설정
+
+        const pointer = initCanvas.getViewportPoint(opt.e); // 마우스 위치 (canvas 좌표계)
+        const point = new Point(pointer.x, pointer.y);
+
+        initCanvas.zoomToPoint(point, zoom);
+
         opt.e.preventDefault();
         opt.e.stopPropagation();
       });
@@ -50,6 +86,7 @@ function Fabric() {
       initCanvas.on("mouse:down", (opt) => {
         const evt = opt.e;
         if ("clientX" in evt && isSpaceDown.current) {
+          initCanvas.setCursor("grabbing");
           initCanvas.isDragging = true;
           initCanvas.selection = false;
           initCanvas.lastPosX = evt.clientX;
@@ -116,6 +153,25 @@ function Fabric() {
     }
   };
 
+  const useEraser = () => {
+    if (!canvas) return;
+
+    canvas.isDrawingMode = true;
+    const eraser = new TransparentEraserBrush(canvas);
+    eraser.width = 30;
+    canvas.freeDrawingBrush = eraser;
+  };
+
+  const usePencil = () => {
+    if (!canvas) return;
+
+    canvas.isDrawingMode = true;
+    const pencil = new PencilBrush(canvas);
+    pencil.color = "#000000";
+    pencil.width = 5;
+    canvas.freeDrawingBrush = pencil;
+  };
+
   return (
     <div className="relative h-screen w-screen bg-gray-100 flex pt-36 justify-center">
       <div className="p-2 absolute bg-slate-900 flex flex-col gap-3 rounded-md top-1/3 left-3 ">
@@ -130,6 +186,18 @@ function Fabric() {
           className="active:bg-white/10 p-1.5 transition-all rounded-md"
         >
           <FaRegCircle className="text-white size-6" />
+        </button>
+        <button
+          onClick={useEraser}
+          className="active:bg-white/10 p-1.5 transition-all rounded-md"
+        >
+          🧽 {/* 또는 지우개 아이콘 */}
+        </button>
+        <button
+          onClick={usePencil}
+          className="active:bg-white/10 p-1.5 transition-all rounded-md"
+        >
+          ✏️
         </button>
       </div>
       <canvas ref={canvasRef} />

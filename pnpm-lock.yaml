@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@gsap/react':
+        specifier: ^2.1.2
+        version: 2.1.2(gsap@3.13.0)(react@19.1.0)
       '@tailwindcss/vite':
         specifier: ^4.1.4
         version: 4.1.4(vite@6.3.2(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3))
@@ -20,6 +23,9 @@ importers:
       fabric:
         specifier: ^6.6.4
         version: 6.6.4
+      gsap:
+        specifier: ^3.13.0
+        version: 3.13.0
       konva:
         specifier: ^9.3.20
         version: 9.3.20
@@ -41,6 +47,9 @@ importers:
       react-konva:
         specifier: ^19.0.3
         version: 19.0.3(@types/react@19.1.2)(konva@9.3.20)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react-svg-pan-zoom:
+        specifier: ^3.13.1
+        version: 3.13.1
       tailwindcss:
         specifier: ^4.1.4
         version: 4.1.4
@@ -63,6 +72,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.4
         version: 19.1.2(@types/react@19.1.2)
+      '@types/react-svg-pan-zoom':
+        specifier: ^3.3.9
+        version: 3.3.9
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.4.0(vite@6.3.2(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3))
@@ -376,6 +388,12 @@ packages:
   '@eslint/plugin-kit@0.2.8':
     resolution: {integrity: sha512-ZAoA40rNMPwSm+AeHpCq8STiNAwzWLJuP8Xv4CHIc9wv/PSuExjMrmjfYNj682vW0OOiZ1HKxzvjQr9XZIisQA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@gsap/react@2.1.2':
+    resolution: {integrity: sha512-JqliybO1837UcgH2hVOM4VO+38APk3ECNrsuSM4MuXp+rbf+/2IG2K1YJiqfTcXQHH7XlA0m3ykniFYstfq0Iw==}
+    peerDependencies:
+      gsap: ^3.12.5
+      react: '>=17'
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -744,6 +762,9 @@ packages:
     resolution: {integrity: sha512-HHM3nxyUZ3zAylX8ZEyrDNd2XZOnQ0D5XfunJF5FLQnZbHHYq4UWvW1QfelQNXv1ICNkwYhfxjwfnqivYB6bFg==}
     peerDependencies:
       '@types/react': '*'
+
+  '@types/react-svg-pan-zoom@3.3.9':
+    resolution: {integrity: sha512-/VA3nI3OmIjgrvWPPeesyON2OxoC27v4yuZ2VRjItXrQnmGZTnQb2WUafLm7+weTUsfFfmngGAyH8oIlbKDkNA==}
 
   '@types/react@19.1.2':
     resolution: {integrity: sha512-oxLPMytKchWGbnQM9O7D67uPa9paTNxO7jVoNMXgkkErULBPhPARCfkKL9ytcIJJRGjbsVwW4ugJzyFFvm/Tiw==}
@@ -1242,6 +1263,9 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
+  gsap@3.13.0:
+    resolution: {integrity: sha512-QL7MJ2WMjm1PHWsoFrAQH/J8wUeqZvMtHO58qdekHpCfhvhSL4gSiz6vJf5EeMP0LOn3ZCprL2ki/gjED8ghVw==}
+
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
@@ -1676,6 +1700,9 @@ packages:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
 
+  react-svg-pan-zoom@3.13.1:
+    resolution: {integrity: sha512-mUGoXfo255c+T/FAdZ5Fr0paw9OpAz4owGku5bRjUOzSKUmqUJpuYbscuuzOIJWbmrJ0N/9mOWPE8JdjSYITbQ==}
+
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
     engines: {node: '>=0.10.0'}
@@ -1846,6 +1873,9 @@ packages:
   tr46@3.0.0:
     resolution: {integrity: sha512-l7FvfAHlcmulp8kr+flpQZmVwtu7nfRV7NZujtN0OqES8EL4O4e0qqzL0DC5gAvx/ZC/9lk6rhcUwYvkBnBnYA==}
     engines: {node: '>=12'}
+
+  transformation-matrix@2.16.1:
+    resolution: {integrity: sha512-tdtC3wxVEuzU7X/ydL131Q3JU5cPMEn37oqVLITjRDSDsnSHVFzW2JiCLfZLIQEgWzZHdSy3J6bZzvKEN24jGA==}
 
   ts-api-utils@2.1.0:
     resolution: {integrity: sha512-CUgTZL1irw8u29bzrOD/nH85jqyc74D6SshFgujOIA7osm2Rz7dYH77agkx7H4FBNxDq7Cjf+IjaX/8zwFW+ZQ==}
@@ -2274,6 +2304,11 @@ snapshots:
       '@eslint/core': 0.13.0
       levn: 0.4.1
 
+  '@gsap/react@2.1.2(gsap@3.13.0)(react@19.1.0)':
+    dependencies:
+      gsap: 3.13.0
+      react: 19.1.0
+
   '@humanfs/core@0.19.1': {}
 
   '@humanfs/node@0.16.6':
@@ -2592,6 +2627,10 @@ snapshots:
       '@types/react': 19.1.2
 
   '@types/react-reconciler@0.28.9(@types/react@19.1.2)':
+    dependencies:
+      '@types/react': 19.1.2
+
+  '@types/react-svg-pan-zoom@3.3.9':
     dependencies:
       '@types/react': 19.1.2
 
@@ -3215,6 +3254,8 @@ snapshots:
 
   graphemer@1.4.0: {}
 
+  gsap@3.13.0: {}
+
   has-flag@4.0.0: {}
 
   has-symbols@1.1.0:
@@ -3640,6 +3681,11 @@ snapshots:
 
   react-refresh@0.17.0: {}
 
+  react-svg-pan-zoom@3.13.1:
+    dependencies:
+      prop-types: 15.8.1
+      transformation-matrix: 2.16.1
+
   react@19.1.0: {}
 
   reactcss@1.2.3(react@19.1.0):
@@ -3830,6 +3876,8 @@ snapshots:
     dependencies:
       punycode: 2.3.1
     optional: true
+
+  transformation-matrix@2.16.1: {}
 
   ts-api-utils@2.1.0(typescript@5.7.3):
     dependencies:

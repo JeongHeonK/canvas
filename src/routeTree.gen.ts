@@ -11,11 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as VanillaCanvasImport } from './routes/vanillaCanvas'
 import { Route as FabricImport } from './routes/fabric'
 import { Route as ColorPickersImport } from './routes/colorPickers'
+import { Route as GsapImport } from './routes/Gsap'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const VanillaCanvasRoute = VanillaCanvasImport.update({
+  id: '/vanillaCanvas',
+  path: '/vanillaCanvas',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const FabricRoute = FabricImport.update({
   id: '/fabric',
@@ -26,6 +34,12 @@ const FabricRoute = FabricImport.update({
 const ColorPickersRoute = ColorPickersImport.update({
   id: '/colorPickers',
   path: '/colorPickers',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GsapRoute = GsapImport.update({
+  id: '/Gsap',
+  path: '/Gsap',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/Gsap': {
+      id: '/Gsap'
+      path: '/Gsap'
+      fullPath: '/Gsap'
+      preLoaderRoute: typeof GsapImport
+      parentRoute: typeof rootRoute
+    }
     '/colorPickers': {
       id: '/colorPickers'
       path: '/colorPickers'
@@ -60,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FabricImport
       parentRoute: typeof rootRoute
     }
+    '/vanillaCanvas': {
+      id: '/vanillaCanvas'
+      path: '/vanillaCanvas'
+      fullPath: '/vanillaCanvas'
+      preLoaderRoute: typeof VanillaCanvasImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -67,42 +95,58 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Gsap': typeof GsapRoute
   '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
+  '/vanillaCanvas': typeof VanillaCanvasRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Gsap': typeof GsapRoute
   '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
+  '/vanillaCanvas': typeof VanillaCanvasRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/Gsap': typeof GsapRoute
   '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
+  '/vanillaCanvas': typeof VanillaCanvasRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/colorPickers' | '/fabric'
+  fullPaths: '/' | '/Gsap' | '/colorPickers' | '/fabric' | '/vanillaCanvas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/colorPickers' | '/fabric'
-  id: '__root__' | '/' | '/colorPickers' | '/fabric'
+  to: '/' | '/Gsap' | '/colorPickers' | '/fabric' | '/vanillaCanvas'
+  id:
+    | '__root__'
+    | '/'
+    | '/Gsap'
+    | '/colorPickers'
+    | '/fabric'
+    | '/vanillaCanvas'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GsapRoute: typeof GsapRoute
   ColorPickersRoute: typeof ColorPickersRoute
   FabricRoute: typeof FabricRoute
+  VanillaCanvasRoute: typeof VanillaCanvasRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GsapRoute: GsapRoute,
   ColorPickersRoute: ColorPickersRoute,
   FabricRoute: FabricRoute,
+  VanillaCanvasRoute: VanillaCanvasRoute,
 }
 
 export const routeTree = rootRoute
@@ -116,18 +160,26 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/Gsap",
         "/colorPickers",
-        "/fabric"
+        "/fabric",
+        "/vanillaCanvas"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/Gsap": {
+      "filePath": "Gsap.tsx"
     },
     "/colorPickers": {
       "filePath": "colorPickers.tsx"
     },
     "/fabric": {
       "filePath": "fabric.tsx"
+    },
+    "/vanillaCanvas": {
+      "filePath": "vanillaCanvas.tsx"
     }
   }
 }

@@ -14,6 +14,12 @@ export const Route = createRootRoute({
         <Link to="/colorPickers" className="p-3 bg-rose-200 rounded-md">
           colorPickers
         </Link>
+        <Link to="/Gsap" className="p-3 bg-green-200 rounded-md">
+          Gsap
+        </Link>
+        <Link to="/vanillaCanvas" className="p-3 bg-cyan-200 rounded-md">
+          vanillaCanvas
+        </Link>
       </div>
       <hr />
       <Outlet />

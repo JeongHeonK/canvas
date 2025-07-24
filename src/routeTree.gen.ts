@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as VanillaCanvasImport } from './routes/vanillaCanvas'
+import { Route as PixiImport } from './routes/pixi'
 import { Route as FabricImport } from './routes/fabric'
 import { Route as ColorPickersImport } from './routes/colorPickers'
 import { Route as GsapImport } from './routes/Gsap'
@@ -22,6 +23,12 @@ import { Route as IndexImport } from './routes/index'
 const VanillaCanvasRoute = VanillaCanvasImport.update({
   id: '/vanillaCanvas',
   path: '/vanillaCanvas',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PixiRoute = PixiImport.update({
+  id: '/pixi',
+  path: '/pixi',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,6 +88,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FabricImport
       parentRoute: typeof rootRoute
     }
+    '/pixi': {
+      id: '/pixi'
+      path: '/pixi'
+      fullPath: '/pixi'
+      preLoaderRoute: typeof PixiImport
+      parentRoute: typeof rootRoute
+    }
     '/vanillaCanvas': {
       id: '/vanillaCanvas'
       path: '/vanillaCanvas'
@@ -98,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/Gsap': typeof GsapRoute
   '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
+  '/pixi': typeof PixiRoute
   '/vanillaCanvas': typeof VanillaCanvasRoute
 }
 
@@ -106,6 +121,7 @@ export interface FileRoutesByTo {
   '/Gsap': typeof GsapRoute
   '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
+  '/pixi': typeof PixiRoute
   '/vanillaCanvas': typeof VanillaCanvasRoute
 }
 
@@ -115,20 +131,28 @@ export interface FileRoutesById {
   '/Gsap': typeof GsapRoute
   '/colorPickers': typeof ColorPickersRoute
   '/fabric': typeof FabricRoute
+  '/pixi': typeof PixiRoute
   '/vanillaCanvas': typeof VanillaCanvasRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/Gsap' | '/colorPickers' | '/fabric' | '/vanillaCanvas'
+  fullPaths:
+    | '/'
+    | '/Gsap'
+    | '/colorPickers'
+    | '/fabric'
+    | '/pixi'
+    | '/vanillaCanvas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/Gsap' | '/colorPickers' | '/fabric' | '/vanillaCanvas'
+  to: '/' | '/Gsap' | '/colorPickers' | '/fabric' | '/pixi' | '/vanillaCanvas'
   id:
     | '__root__'
     | '/'
     | '/Gsap'
     | '/colorPickers'
     | '/fabric'
+    | '/pixi'
     | '/vanillaCanvas'
   fileRoutesById: FileRoutesById
 }
@@ -138,6 +162,7 @@ export interface RootRouteChildren {
   GsapRoute: typeof GsapRoute
   ColorPickersRoute: typeof ColorPickersRoute
   FabricRoute: typeof FabricRoute
+  PixiRoute: typeof PixiRoute
   VanillaCanvasRoute: typeof VanillaCanvasRoute
 }
 
@@ -146,6 +171,7 @@ const rootRouteChildren: RootRouteChildren = {
   GsapRoute: GsapRoute,
   ColorPickersRoute: ColorPickersRoute,
   FabricRoute: FabricRoute,
+  PixiRoute: PixiRoute,
   VanillaCanvasRoute: VanillaCanvasRoute,
 }
 
@@ -163,6 +189,7 @@ export const routeTree = rootRoute
         "/Gsap",
         "/colorPickers",
         "/fabric",
+        "/pixi",
         "/vanillaCanvas"
       ]
     },
@@ -177,6 +204,9 @@ export const routeTree = rootRoute
     },
     "/fabric": {
       "filePath": "fabric.tsx"
+    },
+    "/pixi": {
+      "filePath": "pixi.tsx"
     },
     "/vanillaCanvas": {
       "filePath": "vanillaCanvas.tsx"

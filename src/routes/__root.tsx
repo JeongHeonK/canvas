@@ -20,6 +20,9 @@ export const Route = createRootRoute({
         <Link to="/vanillaCanvas" className="p-3 bg-cyan-200 rounded-md">
           vanillaCanvas
         </Link>
+        <Link to="/pixi" className="p-3 bg-orange-200 rounded-md">
+          pixi
+        </Link>
       </div>
       <hr />
       <Outlet />
